@@ -205,7 +205,7 @@ ioslevel (always, str, 3.1.0.00)
   The latest installed maintenance level of the system
 
 
-file (if I(action=backup) or I(action=migrate), str, /home/padmin/cfgbackups/myserverbackup.002.tar.gz)
+file (if I(action=backup), str, /home/padmin/cfgbackups/myserverbackup.002.tar.gz)
   The name of the backup file that has been created
 
 
