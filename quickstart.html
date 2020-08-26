@@ -186,9 +186,9 @@ can access the collection and the ansible-doc covered in the following topics:</
 <div class="section" id="ansible-user">
 <h2>ansible user<a class="headerlink" href="#ansible-user" title="Permalink to this headline">¶</a></h2>
 <p>Modules included in this collection require administrator rights to run.
-It is recommended to create an <code class="docutils literal notranslate"><span class="pre">ansible</span></code> user on the VIOS with the proper
-level of privilege like this:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ mkuser -attr <span class="nv">roles</span><span class="o">=</span>PAdmin,CacheAdm,FSAdmin,pkgadm <span class="se">\</span>
+It is recommended to create an <code class="docutils literal notranslate"><span class="pre">ansible</span></code> user with the proper level of
+privilege while logged in as root on the VIOS:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ mkuser <span class="nv">roles</span><span class="o">=</span>PAdmin,CacheAdm,FSAdmin,pkgadm <span class="se">\</span>
        <span class="nv">default_roles</span><span class="o">=</span>PAdmin,CacheAdm,FSAdmin,pkgadm ansible
 </pre></div>
 </div>
