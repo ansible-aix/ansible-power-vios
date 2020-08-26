@@ -189,7 +189,7 @@ can access the collection and the ansible-doc covered in the following topics:</
 It is recommended to create an <code class="docutils literal notranslate"><span class="pre">ansible</span></code> user on the VIOS with the proper
 level of privilege like this:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ mkuser -attr <span class="nv">roles</span><span class="o">=</span>PAdmin,CacheAdm,FSAdmin,pkgadm <span class="se">\</span>
-         -attr <span class="nv">default_roles</span><span class="o">=</span>PAdmin,CacheAdm,FSAdmin,pkgadm ansible
+       <span class="nv">default_roles</span><span class="o">=</span>PAdmin,CacheAdm,FSAdmin,pkgadm ansible
 </pre></div>
 </div>
 <p>To connect to the VIOS using this <code class="docutils literal notranslate"><span class="pre">ansible</span></code> user, specify
