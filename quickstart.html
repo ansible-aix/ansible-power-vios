@@ -188,8 +188,8 @@ can access the collection and the ansible-doc covered in the following topics:</
 <p>Modules included in this collection require administrator rights to run.
 It is recommended to create an <code class="docutils literal notranslate"><span class="pre">ansible</span></code> user with the proper level of
 privilege on the VIOS like this:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ oem_setup_env
-<span class="c1"># mkuser roles=PAdmin,CacheAdm,FSAdmin,pkgadm \</span>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> oem_setup_env
+<span class="gp">#</span> mkuser <span class="nv">roles</span><span class="o">=</span>PAdmin,CacheAdm,FSAdmin,pkgadm <span class="se">\</span>
        <span class="nv">default_roles</span><span class="o">=</span>PAdmin,CacheAdm,FSAdmin,pkgadm ansible
 </pre></div>
 </div>
