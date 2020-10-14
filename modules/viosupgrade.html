@@ -234,7 +234,10 @@
 </dd>
 <dt>filename (optional, str, None)</dt><dd><p>Specifies the file that contains the list of files that need to be backed up from the current system and saved in the new VIOS installed image. Each line must contain a single filename along with its path. Multiple files must be specified in separate new lines.</p>
 </dd>
-<dt>cluster (optional, bool, False)</dt><dd><p>Specifies that cluster-level backup and restore operations are performed. Mandatory for a VIOS that is part of an SSP cluster.</p>
+<dt>cluster (optional, bool, None)</dt><dd><p>Specifies that cluster-level backup and restore operations are performed. Mandatory for a VIOS that is part of an SSP cluster.</p>
+<p>If not set, cluster membership is determined automatically.</p>
+</dd>
+<dt>timeout (optional, int, 60)</dt><dd><p>Specifies the timeout (in minutes) to wait for the upgrade to complete.</p>
 </dd>
 </dl>
 </div></blockquote>
@@ -255,18 +258,18 @@
 <div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Perform the VIOS upgrade operation on new rootvg disks hdisk1 and hdisk2</span>
   <span class="nt">viosupgrade</span><span class="p">:</span>
     <span class="nt">image_file</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mymksysbA</span>
-    <span class="nt">mksysb_install_disks</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">hdisk1,hdisk2</span>
+    <span class="nt">mksysb_install_disks</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">hdisk1</span><span class="p p-Indicator">,</span><span class="nv">hdisk2</span><span class="p p-Indicator">]</span>
 
 <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Upgrade the VIOS that belongs to an SSP cluster</span>
   <span class="nt">viosupgrade</span><span class="p">:</span>
     <span class="nt">image_file</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mymksysbA</span>
-    <span class="nt">mksysb_install_disks</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">hdisk1,hdisk2</span>
+    <span class="nt">mksysb_install_disks</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">hdisk1</span><span class="p p-Indicator">,</span><span class="nv">hdisk2</span><span class="p p-Indicator">]</span>
     <span class="nt">cluster</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">yes</span>
 
 <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Copy files from the current rootvg disk to a newly installed VIOS image</span>
   <span class="nt">viosupgrade</span><span class="p">:</span>
     <span class="nt">image_file</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mymksysbA</span>
-    <span class="nt">mksysb_install_disks</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">hdisk1,hdisk2</span>
+    <span class="nt">mksysb_install_disks</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">hdisk1</span><span class="p p-Indicator">,</span><span class="nv">hdisk2</span><span class="p p-Indicator">]</span>
     <span class="nt">filename</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">file_list_name</span>
 </pre></div>
 </div>
@@ -280,7 +283,9 @@
 </dd>
 <dt>stderr (always, str, )</dt><dd><p>The standard error</p>
 </dd>
-<dt>ioslevel (always, str, 3.1.0.00)</dt><dd><p>The latest installed maintenance level of the system</p>
+<dt>old_rootvg (always, list, )</dt><dd><p>The list of disks that are part of the old_rootvg after the upgrade</p>
+</dd>
+<dt>ioslevel (always, dict, )</dt><dd><p>The installed maintenance level of the system before and after the upgrade</p>
 </dd>
 </dl>
 </div>
