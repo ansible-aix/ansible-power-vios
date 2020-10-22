@@ -239,6 +239,13 @@
 </dd>
 <dt>timeout (optional, int, 60)</dt><dd><p>Specifies the timeout (in minutes) to wait for the upgrade to complete.</p>
 </dd>
+<dt>post_install_binary (optional, str, None)</dt><dd><p>Specifies a binary to execute after the restore process of the VIOS metadata configuration is successful.</p>
+</dd>
+<dt>forcecopy (optional, bool, False)</dt><dd><p>Copies the list of backup files to the respective directories in the newly installed rootvg disks.</p>
+</dd>
+<dt>skipclusterstate (optional, bool, False)</dt><dd><p>Skips the verification of the SSP cluster state, so that the installation can be triggered on multiple VIOS nodes simultaneously.</p>
+<p>You must ensure that all the SSP cluster nodes are not in <code class="docutils literal notranslate"><span class="pre">DOWN</span></code> state at the same time as this can bring down the SSP cluster completely.</p>
+</dd>
 </dl>
 </div></blockquote>
 </div>
@@ -249,7 +256,7 @@
 <ul class="simple">
 <li><p>The level of the target mksysb image must be at version 3.1.0.00, or later.</p></li>
 <li><p>Installations through this module are of the type New and Complete installation. Any customized configurations that might exist on the currently running system before the installation starts (including the timezone), are not included in the new installation image.</p></li>
-<li><p>If the <code class="docutils literal notranslate"><span class="pre">altinst_rootvg</span></code> or <code class="docutils literal notranslate"><span class="pre">old_rootvg</span> <span class="pre">disks</span></code> are already available in the VIOS, you must rename them.</p></li>
+<li><p>If the <code class="docutils literal notranslate"><span class="pre">altinst_rootvg</span></code> or <code class="docutils literal notranslate"><span class="pre">old_rootvg</span></code> disks are already available in the VIOS, you must rename them.</p></li>
 </ul>
 </div>
 </div>
@@ -276,16 +283,22 @@
 </div>
 <div class="section" id="return-values">
 <h2><a class="toc-backref" href="#id6">Return Values</a><a class="headerlink" href="#return-values" title="Permalink to this headline">¶</a></h2>
-<dl class="simple">
+<dl>
 <dt>msg (always, str, )</dt><dd><p>The execution message.</p>
 </dd>
 <dt>stdout (always, str, )</dt><dd><p>The standard output</p>
 </dd>
 <dt>stderr (always, str, )</dt><dd><p>The standard error</p>
 </dd>
-<dt>old_rootvg (always, list, )</dt><dd><p>The list of disks that are part of the old_rootvg after the upgrade</p>
+<dt>old_rootvg (always, list, [‘hdisk0’])</dt><dd><p>The list of disks that are part of the old_rootvg after the upgrade</p>
 </dd>
-<dt>ioslevel (always, dict, )</dt><dd><p>The installed maintenance level of the system before and after the upgrade</p>
+<dt>ioslevel (always, dict, {‘ioslevel’: {‘before’: ‘3.1.0.00’, ‘after’: ‘3.1.1.00’}})</dt><dd><p>The installed maintenance level of the system before and after the upgrade</p>
+<dl class="simple">
+<dt>before (always, str, )</dt><dd><p>The installed maintenance level of the system before the upgrade</p>
+</dd>
+<dt>after (success, str, )</dt><dd><p>The installed maintenance level of the system after the upgrade</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </div>

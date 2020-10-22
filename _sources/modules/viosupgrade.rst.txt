@@ -56,6 +56,20 @@ Parameters
     Specifies the timeout (in minutes) to wait for the upgrade to complete.
 
 
+  post_install_binary (optional, str, None)
+    Specifies a binary to execute after the restore process of the VIOS metadata configuration is successful.
+
+
+  forcecopy (optional, bool, False)
+    Copies the list of backup files to the respective directories in the newly installed rootvg disks.
+
+
+  skipclusterstate (optional, bool, False)
+    Skips the verification of the SSP cluster state, so that the installation can be triggered on multiple VIOS nodes simultaneously.
+
+    You must ensure that all the SSP cluster nodes are not in ``DOWN`` state at the same time as this can bring down the SSP cluster completely.
+
+
 
 
 
@@ -65,7 +79,7 @@ Notes
 .. note::
    - The level of the target mksysb image must be at version 3.1.0.00, or later.
    - Installations through this module are of the type New and Complete installation. Any customized configurations that might exist on the currently running system before the installation starts (including the timezone), are not included in the new installation image.
-   - If the ``altinst_rootvg`` or ``old_rootvg disks`` are already available in the VIOS, you must rename them.
+   - If the ``altinst_rootvg`` or ``old_rootvg`` disks are already available in the VIOS, you must rename them.
 
 
 
@@ -110,12 +124,21 @@ stderr (always, str, )
   The standard error
 
 
-old_rootvg (always, list, )
+old_rootvg (always, list, ['hdisk0'])
   The list of disks that are part of the old_rootvg after the upgrade
 
 
-ioslevel (always, dict, )
+ioslevel (always, dict, {'ioslevel': {'before': '3.1.0.00', 'after': '3.1.1.00'}})
   The installed maintenance level of the system before and after the upgrade
+
+
+  before (always, str, )
+    The installed maintenance level of the system before the upgrade
+
+
+  after (success, str, )
+    The installed maintenance level of the system after the upgrade
+
 
 
 
