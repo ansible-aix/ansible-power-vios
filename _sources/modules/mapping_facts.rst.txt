@@ -52,6 +52,12 @@ Parameters
     Mutually exclusive with *vadapter*.
 
 
+  cpid (optional, str, None)
+    Specifies the client partition ID, in decimal, for which to return device mapping information.
+
+    This option is only supported on certain VIOS levels.
+
+
   types (optional, list, None)
     Specifies the type of devices to display. The following types are supported:
 
@@ -191,12 +197,12 @@ ansible_facts (always, complex, )
 
 
 
-    vscsi (always, dict, {'vhost0': {'clientid': '0x00000018', 'physloc': 'U8284.22A.21FD4BV-V1-C29', 'vtds': {'vtscsi0': {'backing': 'hdisk4', 'bdphysloc': 'U78CD.001.FZH1998-P1-C6-T2-W500507680B215660-L0', 'lun': '0x8100000000000000', 'mirrored': False, 'status': 'Available'}, 'vtscsi2': {'backing': 'hdisk5', 'bdphysloc': 'U78CD.001.FZH1998-P1-C6-T2-W500507680B215660-L1000000000000', 'lun': '0x8200000000000000', 'mirrored': False, 'status': 'Available'}}}})
+    vscsi (always, dict, {'vhost0': {'clientid': 24, 'physloc': 'U8284.22A.21FD4BV-V1-C29', 'vtds': {'vtscsi0': {'backing': 'hdisk4', 'bdphysloc': 'U78CD.001.FZH1998-P1-C6-T2-W500507680B215660-L0', 'lun': '0x8100000000000000', 'mirrored': False, 'status': 'Available'}, 'vtscsi2': {'backing': 'hdisk5', 'bdphysloc': 'U78CD.001.FZH1998-P1-C6-T2-W500507680B215660-L1000000000000', 'lun': '0x8200000000000000', 'mirrored': False, 'status': 'Available'}}}})
       Maps server virtual adapter name to backing information.
 
 
-      clientid (always, str, )
-        Client partition ID.
+      clientid (always, int, )
+        Client partition ID, in decimal.
 
 
       physloc (always, str, )

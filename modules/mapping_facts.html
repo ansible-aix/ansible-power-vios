@@ -236,6 +236,9 @@
 <dt>physloc (optional, str, None)</dt><dd><p>Specifies the device physical location code of a server virtual adapter.</p>
 <p>Mutually exclusive with <em>vadapter</em>.</p>
 </dd>
+<dt>cpid (optional, str, None)</dt><dd><p>Specifies the client partition ID, in decimal, for which to return device mapping information.</p>
+<p>This option is only supported on certain VIOS levels.</p>
+</dd>
 <dt>types (optional, list, None)</dt><dd><p>Specifies the type of devices to display. The following types are supported:</p>
 <p><code class="docutils literal notranslate"><span class="pre">disk</span></code> to list physical backing devices.</p>
 <p><code class="docutils literal notranslate"><span class="pre">lv</span></code> to list logical volume backing devices.</p>
@@ -318,9 +321,9 @@
 </dd>
 </dl>
 </dd>
-<dt>vscsi (always, dict, {‘vhost0’: {‘clientid’: ‘0x00000018’, ‘physloc’: ‘U8284.22A.21FD4BV-V1-C29’, ‘vtds’: {‘vtscsi0’: {‘backing’: ‘hdisk4’, ‘bdphysloc’: ‘U78CD.001.FZH1998-P1-C6-T2-W500507680B215660-L0’, ‘lun’: ‘0x8100000000000000’, ‘mirrored’: False, ‘status’: ‘Available’}, ‘vtscsi2’: {‘backing’: ‘hdisk5’, ‘bdphysloc’: ‘U78CD.001.FZH1998-P1-C6-T2-W500507680B215660-L1000000000000’, ‘lun’: ‘0x8200000000000000’, ‘mirrored’: False, ‘status’: ‘Available’}}}})</dt><dd><p>Maps server virtual adapter name to backing information.</p>
+<dt>vscsi (always, dict, {‘vhost0’: {‘clientid’: 24, ‘physloc’: ‘U8284.22A.21FD4BV-V1-C29’, ‘vtds’: {‘vtscsi0’: {‘backing’: ‘hdisk4’, ‘bdphysloc’: ‘U78CD.001.FZH1998-P1-C6-T2-W500507680B215660-L0’, ‘lun’: ‘0x8100000000000000’, ‘mirrored’: False, ‘status’: ‘Available’}, ‘vtscsi2’: {‘backing’: ‘hdisk5’, ‘bdphysloc’: ‘U78CD.001.FZH1998-P1-C6-T2-W500507680B215660-L1000000000000’, ‘lun’: ‘0x8200000000000000’, ‘mirrored’: False, ‘status’: ‘Available’}}}})</dt><dd><p>Maps server virtual adapter name to backing information.</p>
 <dl>
-<dt>clientid (always, str, )</dt><dd><p>Client partition ID.</p>
+<dt>clientid (always, int, )</dt><dd><p>Client partition ID, in decimal.</p>
 </dd>
 <dt>physloc (always, str, )</dt><dd><p>The physical location code of the server’s virtual adapter.</p>
 </dd>
