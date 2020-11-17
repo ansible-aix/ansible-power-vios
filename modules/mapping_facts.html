@@ -423,7 +423,7 @@
 </dd>
 <dt>cluster (always, dict, {‘cluster’: {‘mycluster’: {‘U8233.E8B.HV32001-V2-C2’: {‘clientid’: 0, ‘vtds’: {‘vtscsi0’: {‘backing’: ‘testLU1.b1277fffdd5f38acb365413b55e51638’, ‘lun’: ‘0x8100000000000000’}, ‘vtscsi1’: {‘backing’: ‘testLU2.8f5a2c27dce01bf443383a01c7f723d0’, ‘lun’: ‘0x8200000000000000’}}}, ‘U9179.MHB.10A9DAP-V4-C111’: {‘clientid’: 0, ‘vtds’: {‘vtscsi0’: {‘backing’: ‘testLU4.ad089db46c2dc3769e71bf7875607c6f’, ‘lun’: ‘0x8100000000000000’}}}}}})</dt><dd><p>Maps physical location code of the server virtual adapter to backing information.</p>
 <dl>
-<dt>clientid (always, str, )</dt><dd><p>Client partition ID (in decimal).</p>
+<dt>clientid (always, int, )</dt><dd><p>Client partition ID (in decimal).</p>
 </dd>
 <dt>vtds (always, dict, )</dt><dd><p>Maps virtual target device name to backing information.</p>
 <dl class="simple">
