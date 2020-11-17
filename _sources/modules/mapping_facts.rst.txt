@@ -383,7 +383,7 @@ ansible_facts (always, complex, )
       Maps physical location code of the server virtual adapter to backing information.
 
 
-      clientid (always, int, )
+      clientid (when available, int, )
         Client partition ID (in decimal).
 
 
