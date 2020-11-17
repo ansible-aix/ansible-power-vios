@@ -228,6 +228,7 @@
 <p><code class="docutils literal notranslate"><span class="pre">vscsi</span></code> to list virtual SCSI devices.</p>
 <p><code class="docutils literal notranslate"><span class="pre">npiv</span></code> to list NPIV devices.</p>
 <p><code class="docutils literal notranslate"><span class="pre">net</span></code> to list shared Ethernet adapters.</p>
+<p><code class="docutils literal notranslate"><span class="pre">vnic</span></code> to list server virtual NIC adapters.</p>
 <p><code class="docutils literal notranslate"><span class="pre">all</span></code> to list all devices.</p>
 </dd>
 <dt>vadapter (optional, str, None)</dt><dd><p>Specifies the device name of a server virtual adapter.</p>
@@ -279,7 +280,7 @@
 <dl>
 <dt>ansible_facts (always, complex, )</dt><dd><p>Facts to add to ansible_facts about the mapping between physical, logical, and virtual devices.</p>
 <dl>
-<dt>mappings (success, dict, )</dt><dd><p>Contains mappings for NPIV, VSCSI and SEA.</p>
+<dt>mappings (success, dict, )</dt><dd><p>Contains mappings for NPIV, VSCSI, SEA anc VNIC.</p>
 <dl>
 <dt>npiv (always, dict, {‘vfchost18’: {‘clntid’: 19, ‘clntname’: ‘lpar19’, ‘clntos’: ‘AIX’, ‘fc’: ‘fcs1’, ‘fcphysloc’: ‘U78CD.001.FZH1998-P1-C6-T2’, ‘flags’: 10, ‘physloc’: ‘U8284.22A.21FD4BV-V1-C26’, ‘ports’: 3, ‘status’: ‘LOGGED_IN’, ‘vfcclient’: ‘fcs0’, ‘vfcclientdrc’: ‘U8284.22A.21FD4BV-V19-C3’}})</dt><dd><p>Maps virtual fibre channel adapter name to backing information.</p>
 <dl class="simple">
@@ -289,9 +290,9 @@
 </dd>
 <dt>clntos (when available, str, )</dt><dd><p>The operating system on the client logical partition.</p>
 </dd>
-<dt>fc (always, str, )</dt><dd><p>Physical fibre channel adapter name.</p>
+<dt>fc (when available, str, )</dt><dd><p>Physical fibre channel adapter name.</p>
 </dd>
-<dt>fcphysloc (always, str, )</dt><dd><p>The physical location of the fibre channel adapter.</p>
+<dt>fcphysloc (when available, str, )</dt><dd><p>The physical location of the fibre channel adapter.</p>
 </dd>
 <dt>flags (always, int, )</dt><dd><p>Virtual fibre channel adapter flags.</p>
 </dd>
@@ -340,6 +341,28 @@
 <dt>status (always, str, )</dt><dd><p>Virtual target device status.</p>
 </dd>
 </dl>
+</dd>
+</dl>
+</dd>
+<dt>vnic (always, dict, {‘vnicserver0’: {‘backing’: ‘ent11’, ‘bdphysloc’: ‘U78CD.001.FZH1998-P1-C1-T1-S2’, ‘clntid’: 10, ‘clntphysloc’: ‘U8284.22A.21FD4BV-V10-C9’, ‘physloc’: ‘U8284.22A.21FD4BV-V17-C32897’, ‘status’: ‘Available’}})</dt><dd><p>Maps server virtual NIC adapter name to backing information.</p>
+<dl class="simple">
+<dt>physloc (always, str, )</dt><dd><p>The physical location code of the server’s virtual adapter.</p>
+</dd>
+<dt>clntid (always, int, )</dt><dd><p>Client logical partition ID.</p>
+</dd>
+<dt>clntname (when available, str, )</dt><dd><p>Client logical partition name.</p>
+</dd>
+<dt>clntos (when available, str, )</dt><dd><p>The operating system on the client logical partition.</p>
+</dd>
+<dt>backing (always, str, )</dt><dd><p>Backing device.</p>
+</dd>
+<dt>status (always, str, )</dt><dd><p>Server Virtual NIC Adapter status.</p>
+</dd>
+<dt>bdphysloc (always, str, )</dt><dd><p>The physical location code of the backing device.</p>
+</dd>
+<dt>clntdev (when available, str, )</dt><dd><p>The device name on the client logical partition.</p>
+</dd>
+<dt>clntphysloc (always, str, )</dt><dd><p>The physical location code of the client’s virtual adapter.</p>
 </dd>
 </dl>
 </dd>

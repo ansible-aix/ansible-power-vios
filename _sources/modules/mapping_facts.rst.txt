@@ -37,6 +37,8 @@ Parameters
 
     ``net`` to list shared Ethernet adapters.
 
+    ``vnic`` to list server virtual NIC adapters.
+
     ``all`` to list all devices.
 
 
@@ -120,7 +122,7 @@ ansible_facts (always, complex, )
 
 
   mappings (success, dict, )
-    Contains mappings for NPIV, VSCSI and SEA.
+    Contains mappings for NPIV, VSCSI, SEA anc VNIC.
 
 
     npiv (always, dict, {'vfchost18': {'clntid': 19, 'clntname': 'lpar19', 'clntos': 'AIX', 'fc': 'fcs1', 'fcphysloc': 'U78CD.001.FZH1998-P1-C6-T2', 'flags': 10, 'physloc': 'U8284.22A.21FD4BV-V1-C26', 'ports': 3, 'status': 'LOGGED_IN', 'vfcclient': 'fcs0', 'vfcclientdrc': 'U8284.22A.21FD4BV-V19-C3'}})
@@ -139,11 +141,11 @@ ansible_facts (always, complex, )
         The operating system on the client logical partition.
 
 
-      fc (always, str, )
+      fc (when available, str, )
         Physical fibre channel adapter name.
 
 
-      fcphysloc (always, str, )
+      fcphysloc (when available, str, )
         The physical location of the fibre channel adapter.
 
 
@@ -232,6 +234,47 @@ ansible_facts (always, complex, )
         status (always, str, )
           Virtual target device status.
 
+
+
+
+    vnic (always, dict, {'vnicserver0': {'backing': 'ent11', 'bdphysloc': 'U78CD.001.FZH1998-P1-C1-T1-S2', 'clntid': 10, 'clntphysloc': 'U8284.22A.21FD4BV-V10-C9', 'physloc': 'U8284.22A.21FD4BV-V17-C32897', 'status': 'Available'}})
+      Maps server virtual NIC adapter name to backing information.
+
+
+      physloc (always, str, )
+        The physical location code of the server's virtual adapter.
+
+
+      clntid (always, int, )
+        Client logical partition ID.
+
+
+      clntname (when available, str, )
+        Client logical partition name.
+
+
+      clntos (when available, str, )
+        The operating system on the client logical partition.
+
+
+      backing (always, str, )
+        Backing device.
+
+
+      status (always, str, )
+        Server Virtual NIC Adapter status.
+
+
+      bdphysloc (always, str, )
+        The physical location code of the backing device.
+
+
+      clntdev (when available, str, )
+        The device name on the client logical partition.
+
+
+      clntphysloc (always, str, )
+        The physical location code of the client's virtual adapter.
 
 
 
