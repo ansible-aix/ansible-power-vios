@@ -39,6 +39,12 @@ Parameters
 
     ``vnic`` to list server virtual NIC adapters.
 
+    ``ams`` to list paging space devices that are used in active memory sharing.
+
+    ``suspend`` to list suspended virtual adapters.
+
+    ``cluster`` to list shared storage pool mappings
+
     ``all`` to list all devices.
 
 
@@ -52,6 +58,14 @@ Parameters
     Specifies the device physical location code of a server virtual adapter.
 
     Mutually exclusive with *vadapter*.
+
+
+  vtd (optional, str, None)
+    Specifies the active memory sharing (AMS) paging device to be displayed.
+
+
+  hostname (optional, str, None)
+    Specifies the host name or IP address of the VIOS partition.
 
 
   cpid (optional, str, None)
@@ -122,10 +136,10 @@ ansible_facts (always, complex, )
 
 
   mappings (success, dict, )
-    Contains mappings for NPIV, VSCSI, SEA anc VNIC.
+    Contains mappings for NPIV, VSCSI, SEA, VNIC, AMS, SSP and suspend.
 
 
-    npiv (always, dict, {'vfchost18': {'clntid': 19, 'clntname': 'lpar19', 'clntos': 'AIX', 'fc': 'fcs1', 'fcphysloc': 'U78CD.001.FZH1998-P1-C6-T2', 'flags': 10, 'physloc': 'U8284.22A.21FD4BV-V1-C26', 'ports': 3, 'status': 'LOGGED_IN', 'vfcclient': 'fcs0', 'vfcclientdrc': 'U8284.22A.21FD4BV-V19-C3'}})
+    npiv (always, dict, {'npiv': {'vfchost18': {'clntid': 19, 'clntname': 'lpar19', 'clntos': 'AIX', 'fc': 'fcs1', 'fcphysloc': 'U78CD.001.FZH1998-P1-C6-T2', 'flags': 10, 'physloc': 'U8284.22A.21FD4BV-V1-C26', 'ports': 3, 'status': 'LOGGED_IN', 'vfcclient': 'fcs0', 'vfcclientdrc': 'U8284.22A.21FD4BV-V19-C3'}}})
       Maps virtual fibre channel adapter name to backing information.
 
 
@@ -199,8 +213,8 @@ ansible_facts (always, complex, )
 
 
 
-    vscsi (always, dict, {'vhost0': {'clientid': 24, 'physloc': 'U8284.22A.21FD4BV-V1-C29', 'vtds': {'vtscsi0': {'backing': 'hdisk4', 'bdphysloc': 'U78CD.001.FZH1998-P1-C6-T2-W500507680B215660-L0', 'lun': '0x8100000000000000', 'mirrored': False, 'status': 'Available'}, 'vtscsi2': {'backing': 'hdisk5', 'bdphysloc': 'U78CD.001.FZH1998-P1-C6-T2-W500507680B215660-L1000000000000', 'lun': '0x8200000000000000', 'mirrored': False, 'status': 'Available'}}}})
-      Maps server virtual adapter name to backing information.
+    vscsi (always, dict, {'vscsi': {'vhost0': {'clientid': 24, 'physloc': 'U8284.22A.21FD4BV-V1-C29', 'vtds': {'vtscsi0': {'backing': 'hdisk4', 'bdphysloc': 'U78CD.001.FZH1998-P1-C6-T2-W500507680B215660-L0', 'lun': '0x8100000000000000', 'mirrored': False, 'status': 'Available'}, 'vtscsi2': {'backing': 'hdisk5', 'bdphysloc': 'U78CD.001.FZH1998-P1-C6-T2-W500507680B215660-L1000000000000', 'lun': '0x8200000000000000', 'mirrored': False, 'status': 'Available'}}}}})
+      Maps server virtual SCSI adapter name to backing information.
 
 
       clientid (always, int, )
@@ -237,7 +251,7 @@ ansible_facts (always, complex, )
 
 
 
-    vnic (always, dict, {'vnicserver0': {'backing': 'ent11', 'bdphysloc': 'U78CD.001.FZH1998-P1-C1-T1-S2', 'clntid': 10, 'clntphysloc': 'U8284.22A.21FD4BV-V10-C9', 'physloc': 'U8284.22A.21FD4BV-V17-C32897', 'status': 'Available'}})
+    vnic (always, dict, {'vnic': {'vnicserver0': {'backing': 'ent11', 'bdphysloc': 'U78CD.001.FZH1998-P1-C1-T1-S2', 'clntid': 10, 'clntphysloc': 'U8284.22A.21FD4BV-V10-C9', 'physloc': 'U8284.22A.21FD4BV-V17-C32897', 'status': 'Available'}}})
       Maps server virtual NIC adapter name to backing information.
 
 
@@ -275,6 +289,115 @@ ansible_facts (always, complex, )
 
       clntphysloc (always, str, )
         The physical location code of the client's virtual adapter.
+
+
+
+    ams (always, dict, {'ams': {'vrmpage0': {'backing': 'hdisk3', 'clntid': 0, 'poolid': '0', 'redundancy': False, 'status': 'inactive', 'streamid': '0x20000161d21db4b7'}}})
+      Maps paging virtual target device name to backing information.
+
+
+      streamid (always, str, )
+        Stream ID.
+
+
+      clientid (always, int, )
+        Client logical partition ID (in decimal).
+
+
+      status (always, str, )
+        Paging virtual target device status.
+
+
+      redundancy (always, bool, )
+        Redundancy usage for the paging VIOS logical partitions.
+
+
+      backing (always, str, )
+        Backing device.
+
+
+      poolid (always, str, )
+        Memory pool ID.
+
+
+      vasi (when available, str, )
+        Virtual Asynchronous Services Interface (VASI) device name.
+
+
+      pager (when available, str, )
+        Pager device name.
+
+
+      vbsd (when available, str, )
+        Virtual Block Storage Device (VBSD) name.
+
+
+
+    suspend (always, dict, {'suspend': {'susadpt0': {'clientid': 17, 'clientname': '17*9117-MMB*10002EP', 'state': 'suspended', 'streamid': '0xf70e4facfc46e9a0', 'vtds': {'vtscsi1': {'backing': 'hdisk6', 'bdphysloc': 'U789D.001.DQDWAXR-P1-C4-T1-W205600A0B86E4A5A-L5000000000000', 'lun': '0x8200000000000000', 'mirrored': False, 'status': 'Defined'}}}}})
+      Maps suspended virtual adapter name to backing information.
+
+
+      state (always, str, )
+        Suspended virtual adapter state.
+
+
+      clientname (when available, str, )
+        Client name.
+
+
+      streamid (always, str, )
+        Stream ID.
+
+
+      clientid (always, int, )
+        Client partition ID (in decimal).
+
+
+      vtds (always, dict, )
+        Maps virtual target device name to backing information.
+
+
+        status (always, str, )
+          Virtual target device status.
+
+
+        lun (when available, str, )
+          Logical unit number.
+
+
+        backing (when available, str, )
+          Backing device.
+
+
+        bdphysloc (when available, str, )
+          he physical location code of the backing device.
+
+
+        mirrored (when available, bool, )
+          The backing device is part of a Peer-to-Peer Remote Copy (PPRC) pair.
+
+
+
+
+    cluster (always, dict, {'cluster': {'mycluster': {'U8233.E8B.HV32001-V2-C2': {'clientid': 0, 'vtds': {'vtscsi0': {'backing': 'testLU1.b1277fffdd5f38acb365413b55e51638', 'lun': '0x8100000000000000'}, 'vtscsi1': {'backing': 'testLU2.8f5a2c27dce01bf443383a01c7f723d0', 'lun': '0x8200000000000000'}}}, 'U9179.MHB.10A9DAP-V4-C111': {'clientid': 0, 'vtds': {'vtscsi0': {'backing': 'testLU4.ad089db46c2dc3769e71bf7875607c6f', 'lun': '0x8100000000000000'}}}}}})
+      Maps physical location code of the server virtual adapter to backing information.
+
+
+      clientid (always, str, )
+        Client partition ID (in decimal).
+
+
+      vtds (always, dict, )
+        Maps virtual target device name to backing information.
+
+
+        backing (always, str, )
+          Backing device.
+
+
+        lun (always, str, )
+          Logical unit number.
+
 
 
 

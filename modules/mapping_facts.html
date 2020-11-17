@@ -229,6 +229,9 @@
 <p><code class="docutils literal notranslate"><span class="pre">npiv</span></code> to list NPIV devices.</p>
 <p><code class="docutils literal notranslate"><span class="pre">net</span></code> to list shared Ethernet adapters.</p>
 <p><code class="docutils literal notranslate"><span class="pre">vnic</span></code> to list server virtual NIC adapters.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ams</span></code> to list paging space devices that are used in active memory sharing.</p>
+<p><code class="docutils literal notranslate"><span class="pre">suspend</span></code> to list suspended virtual adapters.</p>
+<p><code class="docutils literal notranslate"><span class="pre">cluster</span></code> to list shared storage pool mappings</p>
 <p><code class="docutils literal notranslate"><span class="pre">all</span></code> to list all devices.</p>
 </dd>
 <dt>vadapter (optional, str, None)</dt><dd><p>Specifies the device name of a server virtual adapter.</p>
@@ -236,6 +239,10 @@
 </dd>
 <dt>physloc (optional, str, None)</dt><dd><p>Specifies the device physical location code of a server virtual adapter.</p>
 <p>Mutually exclusive with <em>vadapter</em>.</p>
+</dd>
+<dt>vtd (optional, str, None)</dt><dd><p>Specifies the active memory sharing (AMS) paging device to be displayed.</p>
+</dd>
+<dt>hostname (optional, str, None)</dt><dd><p>Specifies the host name or IP address of the VIOS partition.</p>
 </dd>
 <dt>cpid (optional, str, None)</dt><dd><p>Specifies the client partition ID, in decimal, for which to return device mapping information.</p>
 <p>This option is only supported on certain VIOS levels.</p>
@@ -280,9 +287,9 @@
 <dl>
 <dt>ansible_facts (always, complex, )</dt><dd><p>Facts to add to ansible_facts about the mapping between physical, logical, and virtual devices.</p>
 <dl>
-<dt>mappings (success, dict, )</dt><dd><p>Contains mappings for NPIV, VSCSI, SEA anc VNIC.</p>
+<dt>mappings (success, dict, )</dt><dd><p>Contains mappings for NPIV, VSCSI, SEA, VNIC, AMS, SSP and suspend.</p>
 <dl>
-<dt>npiv (always, dict, {‘vfchost18’: {‘clntid’: 19, ‘clntname’: ‘lpar19’, ‘clntos’: ‘AIX’, ‘fc’: ‘fcs1’, ‘fcphysloc’: ‘U78CD.001.FZH1998-P1-C6-T2’, ‘flags’: 10, ‘physloc’: ‘U8284.22A.21FD4BV-V1-C26’, ‘ports’: 3, ‘status’: ‘LOGGED_IN’, ‘vfcclient’: ‘fcs0’, ‘vfcclientdrc’: ‘U8284.22A.21FD4BV-V19-C3’}})</dt><dd><p>Maps virtual fibre channel adapter name to backing information.</p>
+<dt>npiv (always, dict, {‘npiv’: {‘vfchost18’: {‘clntid’: 19, ‘clntname’: ‘lpar19’, ‘clntos’: ‘AIX’, ‘fc’: ‘fcs1’, ‘fcphysloc’: ‘U78CD.001.FZH1998-P1-C6-T2’, ‘flags’: 10, ‘physloc’: ‘U8284.22A.21FD4BV-V1-C26’, ‘ports’: 3, ‘status’: ‘LOGGED_IN’, ‘vfcclient’: ‘fcs0’, ‘vfcclientdrc’: ‘U8284.22A.21FD4BV-V19-C3’}}})</dt><dd><p>Maps virtual fibre channel adapter name to backing information.</p>
 <dl class="simple">
 <dt>clntid (always, int, )</dt><dd><p>Client logical partition ID.</p>
 </dd>
@@ -322,7 +329,7 @@
 </dd>
 </dl>
 </dd>
-<dt>vscsi (always, dict, {‘vhost0’: {‘clientid’: 24, ‘physloc’: ‘U8284.22A.21FD4BV-V1-C29’, ‘vtds’: {‘vtscsi0’: {‘backing’: ‘hdisk4’, ‘bdphysloc’: ‘U78CD.001.FZH1998-P1-C6-T2-W500507680B215660-L0’, ‘lun’: ‘0x8100000000000000’, ‘mirrored’: False, ‘status’: ‘Available’}, ‘vtscsi2’: {‘backing’: ‘hdisk5’, ‘bdphysloc’: ‘U78CD.001.FZH1998-P1-C6-T2-W500507680B215660-L1000000000000’, ‘lun’: ‘0x8200000000000000’, ‘mirrored’: False, ‘status’: ‘Available’}}}})</dt><dd><p>Maps server virtual adapter name to backing information.</p>
+<dt>vscsi (always, dict, {‘vscsi’: {‘vhost0’: {‘clientid’: 24, ‘physloc’: ‘U8284.22A.21FD4BV-V1-C29’, ‘vtds’: {‘vtscsi0’: {‘backing’: ‘hdisk4’, ‘bdphysloc’: ‘U78CD.001.FZH1998-P1-C6-T2-W500507680B215660-L0’, ‘lun’: ‘0x8100000000000000’, ‘mirrored’: False, ‘status’: ‘Available’}, ‘vtscsi2’: {‘backing’: ‘hdisk5’, ‘bdphysloc’: ‘U78CD.001.FZH1998-P1-C6-T2-W500507680B215660-L1000000000000’, ‘lun’: ‘0x8200000000000000’, ‘mirrored’: False, ‘status’: ‘Available’}}}}})</dt><dd><p>Maps server virtual SCSI adapter name to backing information.</p>
 <dl>
 <dt>clientid (always, int, )</dt><dd><p>Client partition ID, in decimal.</p>
 </dd>
@@ -344,7 +351,7 @@
 </dd>
 </dl>
 </dd>
-<dt>vnic (always, dict, {‘vnicserver0’: {‘backing’: ‘ent11’, ‘bdphysloc’: ‘U78CD.001.FZH1998-P1-C1-T1-S2’, ‘clntid’: 10, ‘clntphysloc’: ‘U8284.22A.21FD4BV-V10-C9’, ‘physloc’: ‘U8284.22A.21FD4BV-V17-C32897’, ‘status’: ‘Available’}})</dt><dd><p>Maps server virtual NIC adapter name to backing information.</p>
+<dt>vnic (always, dict, {‘vnic’: {‘vnicserver0’: {‘backing’: ‘ent11’, ‘bdphysloc’: ‘U78CD.001.FZH1998-P1-C1-T1-S2’, ‘clntid’: 10, ‘clntphysloc’: ‘U8284.22A.21FD4BV-V10-C9’, ‘physloc’: ‘U8284.22A.21FD4BV-V17-C32897’, ‘status’: ‘Available’}}})</dt><dd><p>Maps server virtual NIC adapter name to backing information.</p>
 <dl class="simple">
 <dt>physloc (always, str, )</dt><dd><p>The physical location code of the server’s virtual adapter.</p>
 </dd>
@@ -363,6 +370,68 @@
 <dt>clntdev (when available, str, )</dt><dd><p>The device name on the client logical partition.</p>
 </dd>
 <dt>clntphysloc (always, str, )</dt><dd><p>The physical location code of the client’s virtual adapter.</p>
+</dd>
+</dl>
+</dd>
+<dt>ams (always, dict, {‘ams’: {‘vrmpage0’: {‘backing’: ‘hdisk3’, ‘clntid’: 0, ‘poolid’: ‘0’, ‘redundancy’: False, ‘status’: ‘inactive’, ‘streamid’: ‘0x20000161d21db4b7’}}})</dt><dd><p>Maps paging virtual target device name to backing information.</p>
+<dl class="simple">
+<dt>streamid (always, str, )</dt><dd><p>Stream ID.</p>
+</dd>
+<dt>clientid (always, int, )</dt><dd><p>Client logical partition ID (in decimal).</p>
+</dd>
+<dt>status (always, str, )</dt><dd><p>Paging virtual target device status.</p>
+</dd>
+<dt>redundancy (always, bool, )</dt><dd><p>Redundancy usage for the paging VIOS logical partitions.</p>
+</dd>
+<dt>backing (always, str, )</dt><dd><p>Backing device.</p>
+</dd>
+<dt>poolid (always, str, )</dt><dd><p>Memory pool ID.</p>
+</dd>
+<dt>vasi (when available, str, )</dt><dd><p>Virtual Asynchronous Services Interface (VASI) device name.</p>
+</dd>
+<dt>pager (when available, str, )</dt><dd><p>Pager device name.</p>
+</dd>
+<dt>vbsd (when available, str, )</dt><dd><p>Virtual Block Storage Device (VBSD) name.</p>
+</dd>
+</dl>
+</dd>
+<dt>suspend (always, dict, {‘suspend’: {‘susadpt0’: {‘clientid’: 17, ‘clientname’: ‘17*9117-MMB*10002EP’, ‘state’: ‘suspended’, ‘streamid’: ‘0xf70e4facfc46e9a0’, ‘vtds’: {‘vtscsi1’: {‘backing’: ‘hdisk6’, ‘bdphysloc’: ‘U789D.001.DQDWAXR-P1-C4-T1-W205600A0B86E4A5A-L5000000000000’, ‘lun’: ‘0x8200000000000000’, ‘mirrored’: False, ‘status’: ‘Defined’}}}}})</dt><dd><p>Maps suspended virtual adapter name to backing information.</p>
+<dl>
+<dt>state (always, str, )</dt><dd><p>Suspended virtual adapter state.</p>
+</dd>
+<dt>clientname (when available, str, )</dt><dd><p>Client name.</p>
+</dd>
+<dt>streamid (always, str, )</dt><dd><p>Stream ID.</p>
+</dd>
+<dt>clientid (always, int, )</dt><dd><p>Client partition ID (in decimal).</p>
+</dd>
+<dt>vtds (always, dict, )</dt><dd><p>Maps virtual target device name to backing information.</p>
+<dl class="simple">
+<dt>status (always, str, )</dt><dd><p>Virtual target device status.</p>
+</dd>
+<dt>lun (when available, str, )</dt><dd><p>Logical unit number.</p>
+</dd>
+<dt>backing (when available, str, )</dt><dd><p>Backing device.</p>
+</dd>
+<dt>bdphysloc (when available, str, )</dt><dd><p>he physical location code of the backing device.</p>
+</dd>
+<dt>mirrored (when available, bool, )</dt><dd><p>The backing device is part of a Peer-to-Peer Remote Copy (PPRC) pair.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt>cluster (always, dict, {‘cluster’: {‘mycluster’: {‘U8233.E8B.HV32001-V2-C2’: {‘clientid’: 0, ‘vtds’: {‘vtscsi0’: {‘backing’: ‘testLU1.b1277fffdd5f38acb365413b55e51638’, ‘lun’: ‘0x8100000000000000’}, ‘vtscsi1’: {‘backing’: ‘testLU2.8f5a2c27dce01bf443383a01c7f723d0’, ‘lun’: ‘0x8200000000000000’}}}, ‘U9179.MHB.10A9DAP-V4-C111’: {‘clientid’: 0, ‘vtds’: {‘vtscsi0’: {‘backing’: ‘testLU4.ad089db46c2dc3769e71bf7875607c6f’, ‘lun’: ‘0x8100000000000000’}}}}}})</dt><dd><p>Maps physical location code of the server virtual adapter to backing information.</p>
+<dl>
+<dt>clientid (always, str, )</dt><dd><p>Client partition ID (in decimal).</p>
+</dd>
+<dt>vtds (always, dict, )</dt><dd><p>Maps virtual target device name to backing information.</p>
+<dl class="simple">
+<dt>backing (always, str, )</dt><dd><p>Backing device.</p>
+</dd>
+<dt>lun (always, str, )</dt><dd><p>Logical unit number.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd>
