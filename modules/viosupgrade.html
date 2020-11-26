@@ -246,7 +246,7 @@
 <p>You must ensure that all the SSP cluster nodes are not in <code class="docutils literal notranslate"><span class="pre">DOWN</span></code> state at the same time as this can bring down the SSP cluster completely.</p>
 </dd>
 <dt>wait_reboot (optional, bool, True)</dt><dd><p>Waits for the system to reboot and for the upgrade to complete.</p>
-<p>Only usable when the remote user is root and the transport is ssh.</p>
+<p>Only usable when the remote user is root and the transport is ssh with public key authentication.</p>
 <p>Copies SSH host identification and root user SSH authorized_keys file to the newly installed rootvg disks.</p>
 </dd>
 </dl>
