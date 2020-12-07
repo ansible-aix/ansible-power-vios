@@ -353,7 +353,7 @@ def main():
                 options=dict(
                     present=dict(type='bool', default=True),
                     port=dict(required=True, type='str'),
-                    remote=dict(type='bool'),
+                    remote=dict(type='bool', default=False),
                     address=dict(type='str'),
                     timeout=dict(type='str'),
                     interface=dict(type='str'),

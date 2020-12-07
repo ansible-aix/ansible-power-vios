@@ -36,7 +36,7 @@ pip3 install pyyaml voluptuous pycodestyle ansible-doc-extractor
 [[ -e $(find test/ -name sanity.txt) ]] && pip install -r $(find test/ -name sanity.txt)
 
 # place the modules in the appropriate folder
-cp $DIR/plugins/modules/*.py $ANSIBLE_DIR/lib/ansible/modules/
+cp $DIR/plugins/modules/[!_]*.py $ANSIBLE_DIR/lib/ansible/modules/
 
 
 set +e
@@ -55,7 +55,7 @@ for f in $DIR/plugins/modules/*.py; do
     done
     (( $m_rc )) && errored+="$f "
 done
-(( $rc )) && printf "%s\n%s" "-------- module in error --------" errored
+(( $rc )) && printf "%s\n%s" "-------- module in error --------" "$errored"
 
 set -e
 
