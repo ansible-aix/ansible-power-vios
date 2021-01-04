@@ -53,8 +53,8 @@ for f in $DIR/plugins/modules/*.py; do
         ansible-test sanity ${f%%.py} --python $version
         (( $? )) && m_rc=1 && rc=$(($rc + $m_rc))
         # if there is an associated action plugin, sanity check the file
-        if [ -f $DIR/plugins/action/${f}.py ]; then
-            ansible-test sanity $ANSIBLE_DIR/lib/ansible/plugins/action/${f}.py
+        if [ -f $DIR/plugins/action/$f ]; then
+            ansible-test sanity $ANSIBLE_DIR/lib/ansible/plugins/action/$f
             (( $? )) && m_rc=1 && rc=$(($rc + $m_rc))
         fi
     done
