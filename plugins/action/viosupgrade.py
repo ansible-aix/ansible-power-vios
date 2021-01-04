@@ -44,6 +44,7 @@ exit 0
 '''
 
 
+# pylint: disable=super-with-arguments
 class ActionModule(ActionBase):
     TRANSFERS_FILES = True
     _VALID_ARGS = frozenset((
