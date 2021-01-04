@@ -37,7 +37,7 @@ pip3 install pyyaml voluptuous pycodestyle ansible-doc-extractor
 
 # place the modules and action plugins in the appropriate folders
 cp $DIR/plugins/modules/[!_]*.py $ANSIBLE_DIR/lib/ansible/modules/
-cp $DIR/plugins/actions/[!_]*.py $ANSIBLE_DIR/lib/ansible/plugins/action/
+cp $DIR/plugins/action/[!_]*.py $ANSIBLE_DIR/lib/ansible/plugins/action/
 
 set +e
 
