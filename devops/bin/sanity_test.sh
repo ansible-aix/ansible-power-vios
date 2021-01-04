@@ -35,9 +35,9 @@ pip install pylint yamllint pyyaml
 pip3 install pyyaml voluptuous pycodestyle ansible-doc-extractor
 [[ -e $(find test/ -name sanity.txt) ]] && pip install -r $(find test/ -name sanity.txt)
 
-# place the modules in the appropriate folder
+# place the modules and action plugins in the appropriate folders
 cp $DIR/plugins/modules/[!_]*.py $ANSIBLE_DIR/lib/ansible/modules/
-
+cp $DIR/plugins/actions/[!_]*.py $ANSIBLE_DIR/lib/ansible/plugins/action/
 
 set +e
 
