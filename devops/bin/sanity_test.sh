@@ -52,9 +52,15 @@ for f in $DIR/plugins/modules/*.py; do
         grep "${f%%.py}" $SANITY_IGNORE && sed -i "/$f/d" $SANITY_IGNORE
         ansible-test sanity ${f%%.py} --python $version
         (( $? )) && m_rc=1 && rc=$(($rc + $m_rc))
+        # if there is an associated action plugin, sanity check the file
+        if [ -f $DIR/plugins/action/${f}.py ]; then
+            ansible-test sanity $ANSIBLE_DIR/lib/ansible/plugins/action/${f}.py
+            (( $? )) && m_rc=1 && rc=$(($rc + $m_rc))
+        fi
     done
     (( $m_rc )) && errored+="$f "
 done
+
 (( $rc )) && printf "%s\n%s" "-------- module in error --------" "$errored"
 
 set -e
